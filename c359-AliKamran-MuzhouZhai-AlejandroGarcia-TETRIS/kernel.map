@@ -1,0 +1,343 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD build/winmenu.o
+LOAD build/lostmenu.o
+LOAD build/selecterImage.o
+LOAD build/framebuffer.o
+LOAD build/pixels.o
+LOAD build/mainMenuImage.o
+LOAD build/font.o
+LOAD build/gameMenuFunctions.o
+LOAD build/main.o
+LOAD build/GameLost.o
+LOAD build/blocks.o
+LOAD build/mainMenuFunctions.o
+LOAD build/snescontroller.o
+LOAD build/gameMenuImage.o
+LOAD build/jtag.o
+LOAD build/GameWin.o
+LOAD build/randomgen.o
+LOAD uart.o
+LOAD gpio.o
+
+.init           0x00008000        0x8
+ *(.init)
+ .init          0x00008000        0x0 build/winmenu.o
+ .init          0x00008000        0x0 build/lostmenu.o
+ .init          0x00008000        0x0 build/selecterImage.o
+ .init          0x00008000        0x0 build/pixels.o
+ .init          0x00008000        0x0 build/mainMenuImage.o
+ .init          0x00008000        0x0 build/font.o
+ .init          0x00008000        0x0 build/gameMenuFunctions.o
+ .init          0x00008000        0x4 build/main.o
+                0x00008000                _start
+ .init          0x00008004        0x0 build/GameLost.o
+ .init          0x00008004        0x0 build/blocks.o
+ .init          0x00008004        0x0 build/mainMenuFunctions.o
+ .init          0x00008004        0x4 build/snescontroller.o
+ .init          0x00008008        0x0 build/gameMenuImage.o
+ .init          0x00008008        0x0 build/GameWin.o
+ .init          0x00008008        0x0 build/randomgen.o
+
+.data           0x00009080   0x30f8b8
+ *(.data)
+ .data          0x00009080    0xa2000 build/winmenu.o
+                0x00009080                winMenu
+ .data          0x000ab080    0xa2000 build/lostmenu.o
+                0x000ab080                lostMenu
+ .data          0x0014d080     0x4800 build/selecterImage.o
+                0x0014d080                t1
+ .data          0x00151880       0x70 build/framebuffer.o
+                0x001518e0                FrameBufferPointer
+ .data          0x001518f0      0x320 build/pixels.o
+                0x001518f0                maxGameStateArray
+                0x001518f4                WaitInterval
+                0x001518f8                SavedGameStateArray
+                0x00151a00                NewGameStateArray
+                0x00151b08                GameStateArray
+ .data          0x00151c10    0xa1fcc build/mainMenuImage.o
+                0x00151c10                mainMenuImage
+ *fill*         0x001f3bdc        0x4 3f3f3f3f
+ .data          0x001f3be0      0x800 build/font.o
+ .data          0x001f43e0        0x4 build/gameMenuFunctions.o
+ .data          0x001f43e4       0x1c build/main.o
+                0x001f43fd                gamecondition
+                0x001f43fe                currentScreen
+                0x001f43ff                powerup
+ .data          0x001f4400    0x3e800 build/GameLost.o
+                0x001f4400                gameLose
+ .data          0x00232c00     0x51c0 build/blocks.o
+                0x00232c00                defaultI0
+                0x00232c10                defaultI1
+                0x00232c20                defaultI2
+                0x00232c30                defaultI3
+                0x00232c40                defaultJ0
+                0x00232c50                defaultJ1
+                0x00232c60                defaultJ2
+                0x00232c70                defaultJ3
+                0x00232c80                defaultL0
+                0x00232c90                defaultL1
+                0x00232ca0                defaultL2
+                0x00232cb0                defaultL3
+                0x00232cc0                defaultO0
+                0x00232cd0                defaultO1
+                0x00232ce0                defaultO2
+                0x00232cf0                defaultO3
+                0x00232d00                defaultS0
+                0x00232d10                defaultS1
+                0x00232d20                defaultS2
+                0x00232d30                defaultS3
+                0x00232d40                defaultT0
+                0x00232d50                defaultT1
+                0x00232d60                defaultT2
+                0x00232d70                defaultT3
+                0x00232d80                defaultZ0
+                0x00232d90                defaultZ1
+                0x00232da0                defaultZ2
+                0x00232db0                defaultZ3
+                0x00232dc0                BlackBlock
+                0x002335c0                GreyBlock
+                0x00233dc0                BlueBlock
+                0x002345c0                CyanBlock
+                0x00234dc0                GreenBlock
+                0x002355c0                OrangeBlock
+                0x00235dc0                PurpleBlock
+                0x002365c0                RedBlock
+                0x00236dc0                YellowBlock
+                0x002375c0                PowerBlock
+ .data          0x00237dc0        0x4 build/mainMenuFunctions.o
+ .data          0x00237dc4      0x364 build/snescontroller.o
+ .data          0x00238128    0xa2000 build/gameMenuImage.o
+                0x00238128                GameMenu
+ .data          0x002da128        0x0 build/jtag.o
+ .data          0x002da128    0x3e800 build/GameWin.o
+                0x002da128                gameWin
+ .data          0x00318928       0x10 build/randomgen.o
+ .data          0x00318938        0x0 uart.o
+ .data          0x00318938        0x0 gpio.o
+ *.c.o(*)
+
+.igot.plt       0x00318938        0x0
+ .igot.plt      0x00000000        0x0 build/framebuffer.o
+
+.text           0x00318938     0x16e0
+ *.c.o(.text)
+ *(.text)
+ .text          0x00318938        0x0 build/winmenu.o
+ .text          0x00318938        0x0 build/lostmenu.o
+ .text          0x00318938        0x0 build/selecterImage.o
+ .text          0x00318938       0x80 build/framebuffer.o
+                0x00318938                InitFrameBuffer
+ .text          0x003189b8      0x4dc build/pixels.o
+                0x003189b8                ClearMenuImage
+                0x00318a14                ClearScreen
+                0x00318a64                DrawMenu
+                0x00318acc                DrawImage
+                0x00318bd8                ClearBlock
+                0x00318c0c                DrawBlock
+                0x00318c3c                DrawTetramino
+                0x00318ca4                CheckPlacementSpace
+                0x00318d58                ClearImage
+                0x00318db4                DrawGameState
+                0x00318e14                DrawPixel
+                0x00318e34                divide
+ .text          0x00318e94        0x0 build/mainMenuImage.o
+ .text          0x00318e94       0x5c build/font.o
+                0x00318e94                DrawChar
+ .text          0x00318ef0      0x154 build/gameMenuFunctions.o
+                0x00318ef0                gameMenu
+                0x00318f88                gameMenuUp
+                0x00318fcc                gameMenuDown
+                0x00319010                gamemenuSelect
+ .text          0x00319044      0x7d4 build/main.o
+                0x0031905c                mainmenu
+                0x00319094                newgame
+                0x0031915c                GameLoop
+                0x00319504                moveleft
+                0x00319590                moveright
+                0x0031961c                rotateleft
+                0x003196d0                rotateright
+ .text          0x00319818        0x0 build/GameLost.o
+ .text          0x00319818        0x0 build/blocks.o
+ .text          0x00319818      0x120 build/mainMenuFunctions.o
+                0x00319818                drawmainMenu
+                0x00319868                menuUp
+                0x003198b0                menuDown
+                0x003198fc                menuSelect
+                0x00319920                quitGame
+ .text          0x00319938      0x288 build/snescontroller.o
+                0x00319938                mainSNES
+                0x00319968                bigLoop
+ .text          0x00319bc0        0x0 build/gameMenuImage.o
+ .text          0x00319bc0       0x8c build/jtag.o
+                0x00319bc0                EnableJTAG
+ .text          0x00319c4c        0x0 build/GameWin.o
+ .text          0x00319c4c      0x13c build/randomgen.o
+                0x00319c4c                getTetrimino
+                0x00319c94                getRandom
+                0x00319d14                generateRandomVariables
+ .text          0x00319d88      0x1b8 uart.o
+                0x00319d88                InitUART
+                0x00319e48                PutCharUART
+                0x00319e64                GetCharUART
+                0x00319e80                WriteStringUART
+                0x00319eb0                ReadLineUART
+ .text          0x00319f40       0xd8 gpio.o
+                0x00319f40                GetGpioAddress
+                0x00319f48                SetGpioFunction
+                0x00319f94                SetGpio
+                0x00319fd0                GetGpio
+OUTPUT(build/output.elf elf32-littlearm)
+
+.glue_7         0x0031a018        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x0031a018        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x0031a018        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x0031a018        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x0031a018        0x0
+ .iplt          0x00000000        0x0 build/framebuffer.o
+
+.rel.dyn        0x0031a018        0x0
+ .rel.iplt      0x00000000        0x0 build/framebuffer.o
+
+.bss            0x0031a018        0x0
+ .bss           0x0031a018        0x0 build/winmenu.o
+ .bss           0x0031a018        0x0 build/lostmenu.o
+ .bss           0x0031a018        0x0 build/selecterImage.o
+ .bss           0x0031a018        0x0 build/framebuffer.o
+ .bss           0x0031a018        0x0 build/pixels.o
+ .bss           0x0031a018        0x0 build/mainMenuImage.o
+ .bss           0x0031a018        0x0 build/font.o
+ .bss           0x0031a018        0x0 build/gameMenuFunctions.o
+ .bss           0x0031a018        0x0 build/main.o
+ .bss           0x0031a018        0x0 build/GameLost.o
+ .bss           0x0031a018        0x0 build/blocks.o
+ .bss           0x0031a018        0x0 build/mainMenuFunctions.o
+ .bss           0x0031a018        0x0 build/snescontroller.o
+ .bss           0x0031a018        0x0 build/gameMenuImage.o
+ .bss           0x0031a018        0x0 build/jtag.o
+ .bss           0x0031a018        0x0 build/GameWin.o
+ .bss           0x0031a018        0x0 build/randomgen.o
+ .bss           0x0031a018        0x0 uart.o
+ .bss           0x0031a018        0x0 gpio.o
+
+.ARM.attributes
+                0x00000000       0x29
+ .ARM.attributes
+                0x00000000       0x29 build/winmenu.o
+ .ARM.attributes
+                0x00000029       0x29 build/lostmenu.o
+ .ARM.attributes
+                0x00000052       0x29 build/selecterImage.o
+ .ARM.attributes
+                0x0000007b       0x29 build/framebuffer.o
+ .ARM.attributes
+                0x000000a4       0x29 build/pixels.o
+ .ARM.attributes
+                0x000000cd       0x29 build/mainMenuImage.o
+ .ARM.attributes
+                0x000000f6       0x29 build/font.o
+ .ARM.attributes
+                0x0000011f       0x29 build/gameMenuFunctions.o
+ .ARM.attributes
+                0x00000148       0x29 build/main.o
+ .ARM.attributes
+                0x00000171       0x29 build/GameLost.o
+ .ARM.attributes
+                0x0000019a       0x29 build/blocks.o
+ .ARM.attributes
+                0x000001c3       0x29 build/mainMenuFunctions.o
+ .ARM.attributes
+                0x000001ec       0x29 build/snescontroller.o
+ .ARM.attributes
+                0x00000215       0x29 build/gameMenuImage.o
+ .ARM.attributes
+                0x0000023e       0x29 build/jtag.o
+ .ARM.attributes
+                0x00000267       0x29 build/GameWin.o
+ .ARM.attributes
+                0x00000290       0x29 build/randomgen.o
+ .ARM.attributes
+                0x000002b9       0x29 uart.o
+ .ARM.attributes
+                0x000002e2       0x29 gpio.o
+
+.debug_line     0x00000000      0x905
+ .debug_line    0x00000000       0x67 build/framebuffer.o
+ .debug_line    0x00000067      0x194 build/pixels.o
+ .debug_line    0x000001fb       0x55 build/font.o
+ .debug_line    0x00000250       0xa5 build/gameMenuFunctions.o
+ .debug_line    0x000002f5      0x253 build/main.o
+ .debug_line    0x00000548       0x96 build/mainMenuFunctions.o
+ .debug_line    0x000005de       0xff build/snescontroller.o
+ .debug_line    0x000006dd       0x61 build/jtag.o
+ .debug_line    0x0000073e       0x97 build/randomgen.o
+ .debug_line    0x000007d5       0xb7 uart.o
+ .debug_line    0x0000088c       0x79 gpio.o
+
+.debug_info     0x00000000      0x4da
+ .debug_info    0x00000000       0x67 build/framebuffer.o
+ .debug_info    0x00000067       0x81 build/pixels.o
+ .debug_info    0x000000e8       0x60 build/font.o
+ .debug_info    0x00000148       0x8c build/gameMenuFunctions.o
+ .debug_info    0x000001d4       0x77 build/main.o
+ .debug_info    0x0000024b       0x8c build/mainMenuFunctions.o
+ .debug_info    0x000002d7       0x66 build/snescontroller.o
+ .debug_info    0x0000033d       0x65 build/jtag.o
+ .debug_info    0x000003a2       0x84 build/randomgen.o
+ .debug_info    0x00000426       0x5a uart.o
+ .debug_info    0x00000480       0x5a gpio.o
+
+.debug_abbrev   0x00000000       0xd8
+ .debug_abbrev  0x00000000       0x14 build/framebuffer.o
+ .debug_abbrev  0x00000014       0x14 build/pixels.o
+ .debug_abbrev  0x00000028       0x14 build/font.o
+ .debug_abbrev  0x0000003c       0x14 build/gameMenuFunctions.o
+ .debug_abbrev  0x00000050       0x12 build/main.o
+ .debug_abbrev  0x00000062       0x14 build/mainMenuFunctions.o
+ .debug_abbrev  0x00000076       0x12 build/snescontroller.o
+ .debug_abbrev  0x00000088       0x14 build/jtag.o
+ .debug_abbrev  0x0000009c       0x14 build/randomgen.o
+ .debug_abbrev  0x000000b0       0x14 uart.o
+ .debug_abbrev  0x000000c4       0x14 gpio.o
+
+.debug_aranges  0x00000000      0x170
+ .debug_aranges
+                0x00000000       0x20 build/framebuffer.o
+ .debug_aranges
+                0x00000020       0x20 build/pixels.o
+ .debug_aranges
+                0x00000040       0x20 build/font.o
+ .debug_aranges
+                0x00000060       0x20 build/gameMenuFunctions.o
+ .debug_aranges
+                0x00000080       0x28 build/main.o
+ .debug_aranges
+                0x000000a8       0x20 build/mainMenuFunctions.o
+ .debug_aranges
+                0x000000c8       0x28 build/snescontroller.o
+ .debug_aranges
+                0x000000f0       0x20 build/jtag.o
+ .debug_aranges
+                0x00000110       0x20 build/randomgen.o
+ .debug_aranges
+                0x00000130       0x20 uart.o
+ .debug_aranges
+                0x00000150       0x20 gpio.o
+
+.debug_ranges   0x00000000       0x40
+ .debug_ranges  0x00000000       0x20 build/main.o
+ .debug_ranges  0x00000020       0x20 build/snescontroller.o
